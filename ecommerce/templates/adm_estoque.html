@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block title %}Atualizar Produto{% endblock %}
+
+{% block styles %}
+<style>
+    body {
+        background-image: url('/static/img/FundoFormulariosIndex.jpg');
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    main {
+        padding-top: 15px;
+    }
+
+    .container-geral {
+        background-color: rgba(0, 0, 0, 0.548);
+        width: 80%;
+        margin-top: 15px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 1px 1px 10px rgb(53, 52, 52);
+        padding-bottom: 10px;
+    }
+
+    h1 {
+        color: black;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        color: white;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        color: white;
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th:nth-child(1),
+    td:nth-child(1) {
+        width: 50px;
+        text-align: center;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2),
+    th:nth-child(3),
+    td:nth-child(3) {
+        max-width: 100px;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+
+    th:nth-child(4),
+    td:nth-child(4),
+    th:nth-child(5),
+    td:nth-child(5) {
+        width: 100px;
+        text-align: center;
+    }
+
+    th:nth-child(6),
+    td:nth-child(6) {
+        width: 250px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #141212;
+    }
+
+    .atualizar-btn,
+    .delete-btn {
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .delete-btn {
+        background-color: #FF0000;
+        color: #fff;
+    }
+
+    .atualizar-btn {
+        background-color: #12e60b;
+        color: #fff;
+    }
+
+    a {
+        text-decoration: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="container-geral">
+    <h2>Controle de Estoque</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Quantidade</th>
+                <th style="width: 150px;">Ações</th>
+            </tr>
+        </thead>
+        <tbody id="produtos-tbody">
+            {% for produto in produtos %}
+            <tr>
+                <td>{{produto.id}}</td>
+                <td>{{produto.nome}}</td>
+                <td>{{produto.descricao}}</td>
+                <td>{{produto.preco}}</td>
+                <td>{{produto.quantidade}}</td>
+                <td>
+                    <a id="att" class="atualizar-btn"
+                        href="{% url 'atualizar_produto' %}?id_produto={{ produto.id }}">Atualizar</a>
+                    <a id="del" class="delete-btn"
+                    <button class="delete-btn" onclick="confirmarExclusao('{{ produto.id }}')"></button>
+
+                        Deletar
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function confirmarExclusao(produtoId) {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Você está prestes a excluir esse produto.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#e60000',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, deletar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `/produto/deletar/${produtoId}/`;
+            }
+        });
+    }
+</script>
+
+
+{% endblock %}

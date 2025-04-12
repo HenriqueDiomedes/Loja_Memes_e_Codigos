@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu de Formularios</title>
+</head>
+<style>
+    @font-face {
+        font-family: 'font-1';
+        src: url('/static/font/TEAKWOOD.ttf');
+    }
+
+    @font-face {
+        font-family: 'font-2';
+        src: url('/static/font/TEAKWOOD.ttf');
+    }
+
+    body {
+        background-image: url('/static/img/FundoFormulariosIndex.jpg');
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        padding-top: 50px;
+    }
+
+    h1 {
+        font-family: 'font-1';
+        text-align: center;
+        color: red;
+        font-size: 4.5em;
+        text-shadow: 2px 4px 4px black;
+        padding: 5px;
+    }
+
+    form {
+        background-color: rgba(128, 128, 128, 0.253);
+        min-width: 300px;
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 3px 3px 9px 1px black;
+    }
+
+    fieldset {
+        background-color: rgba(0, 0, 0, 0.329);
+        font-weight: bold;
+        text-align: center;
+        color: white;
+        margin: auto;
+        border-radius: 10px;
+        box-shadow: 3px 3px 9px 1px black;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    button {
+        font-family: 'font-2';
+        font-size: 1.1em;
+        border: 1px solid black;
+        padding: 10px;
+        margin: auto;
+        border-radius: 10px;
+        box-shadow: 1px 1px 2px 1px black;
+        width: 200px;
+        height: 30px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+
+<body>
+    <h1>FORMULARIOS DA GERENCIA</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Formularios</legend>
+            <button type="submit" name="escolha" value="produto">Cadastrar Produto</button>
+            <button type="submit" name="escolha" value="cliente">Cadastrar Cliente</button>            
+            <button><a href="{% url 'atualizar_produto' %}">Atualizar Produtos</a></button>
+            <button><a href="{% url 'atualizar_cliente' %}">Atualizar Clienente</a></button>
+            <button><a href="{% url 'lista_produtos' %}">Lista de Produtos</a></button>
+            <button><a href="{% url 'perfil_cliente' %}">Perfil do Cliente</a></button>
+            <button><a href="{% url 'adm_estoque' %}">Estoque de Produtos</a></button>
+            <button><a href="{% url 'adm_cliente' %}">Gerenciar Clientes</a></button>
+        </fieldset>
+        <br>
+        <button><a href="{% url 'lista_produtos' %}">Início 🏛</a></button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Perfil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 1rem;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"] {
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 0.3rem;
+        }
+        button {
+            margin-top: 1.5rem;
+            padding: 0.7rem 1.5rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Editar Perfil do Cliente</h2>
+        <form action="{% url 'atualizar_cliente' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset>
+                <input type="text" name="nome" value="{{ cliente.nome }}">
+                <label>Nome:</label>
+                <input type="text" name="nome" value="{{ cliente.nome }}">
+                <label>Sobrenome:</label>
+                <input type="text" name="sobrenome" value="{{ cliente.sobrenome }}">
+                <label>Email:</label>
+                <input type="email" name="email" value="{{ cliente.email }}">
+                <label>Telefone:</label>
+                <input type="tel" name="telefone" value="{{ cliente.telefone }}">
+                <label>CPF:</label>
+                <input type="text" name="cpf" value="{{ cliente.cpf }}">
+                <label>Data de Nascimento:</label>
+                <input type="date" name="dataNascimento" value="{{ cliente.dataNascimento|date:'Y-m-d' }}">
+                <label>Rua:</label>
+                <input type="text" name="rua" value="{{ cliente.rua }}">
+                <label>Número da Casa:</label>
+                <input type="text" name="numero_casa" value="{{ cliente.numero_casa }}">
+                <label>CEP:</label>
+                <input type="text" name="cep" value="{{ cliente.cep }}">
+                <label>Estado:</label>
+                <input type="text" name="estado" value="{{ cliente.estado }}">
+                <label>Cidade:</label>
+                <input type="text" name="cidade" value="{{ cliente.cidade }}">
+                <button type="submit">Salvar Alterações</button>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

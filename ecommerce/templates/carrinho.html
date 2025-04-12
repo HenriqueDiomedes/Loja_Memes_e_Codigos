@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<style>
+    body {
+        background-image: url('/static/img/FundoFormulariosIndex.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: Arial, sans-serif;
+        margin: 0;
+    }
+
+    main {
+        padding: 50px;
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        max-width: 1200px;
+        margin: auto;
+        margin-bottom: 60px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .tabela-carrinho {
+        width: 100%;
+        background-color: white;
+        border-collapse: collapse;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .tabela-carrinho th,
+    .tabela-carrinho td {
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    .tabela-carrinho th {
+        background-color: #fafafa;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .produto-info {
+        display: flex;
+        align-items: center;
+        text-align: left;
+    }
+
+    .produto-info img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        margin-right: 10px;
+        border-radius: 4px;
+    }
+
+    .produto-info .detalhes {
+        max-width: 300px;
+    }
+
+    .produto-info .detalhes .nome {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .produto-info .detalhes .variacao {
+        color: #888;
+        font-size: 14px;
+    }
+
+    .preco-antigo {
+        text-decoration: line-through;
+        color: #aaa;
+        font-size: 14px;
+        display: block;
+    }
+
+    .preco-novo {
+        color: #d70000;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .quantidade {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .quantidade a {
+        width: 25px;
+        height: 25px;
+        background-color: white;
+        border: 1px solid #ccc;
+        text-align: center;
+        text-decoration: none;
+        line-height: 25px;
+        color: black;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    .quantidade input {
+        width: 40px;
+        text-align: center;
+        border: 1px solid #ccc;
+        height: 25px;
+    }
+
+    .acoes {
+        display: flex;
+        gap: 5px;
+        font-size: 14px;
+    }
+
+    .acoes a {
+        color: #d70000;
+        text-decoration: none;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .acoes a:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsividade */
+    @media (max-width: 767px) {
+        .tabela-carrinho th, .tabela-carrinho td {
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .produto-info img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .produto-info .detalhes .nome {
+            font-size: 14px;
+        }
+
+        .quantidade a {
+            width: 20px;
+            height: 20px;
+            font-size: 14px;
+        }
+
+        .quantidade input {
+            width: 30px;
+            font-size: 14px;
+        }
+
+        main {
+            padding: 20px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main>
+    <h2>Seu Carrinho</h2>
+
+    <table class="tabela-carrinho">
+        <thead>
+            <tr>
+                <th><input type="checkbox" /></th>
+                <th>Produto</th>
+                <th>Preço Unitário</th>
+                <th>Quantidade</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+            <tr>
+                <td><input type="checkbox" /></td>
+                <td class="produto-info">
+                    <img src="{{ produto.imagem1 }}" alt="Imagem do Produto">
+                    <div class="detalhes">
+                        <div class="nome">{{ produto.nome }}</div>
+                    </div>
+                </td>
+                <td>
+                    <span class="preco-novo">R$ {{ produto.preco }}</span>
+                </td>
+                <td>
+                    <div class="quantidade">
+                        <a href="{% url 'diminuir_quantidade' produto.id %}">−</a>
+                        <input type="text" value="{{ produto.quantidade }}" readonly />
+                        <a href="{% url 'aumentar_quantidade' produto.id %}">+</a>
+                    </div>
+                </td>
+                <td class="acoes">
+                    <a href="{% url 'remover_do_carrinho' produto.id %}">Remover</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" style="text-align: right; font-weight: bold;">Total:</td>
+                <td colspan="2" style="font-weight: bold; color: green;">
+                    R$ {{ total_geral|floatformat:2 }}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</main>
+{% endblock %}

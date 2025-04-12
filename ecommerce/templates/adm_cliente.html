@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block title %}Perfil do Cliente{% endblock %}
+
+{% block styles %}
+<style>
+    body {
+        background-image: url('/static/img/FundoFormulariosIndex.jpg');
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+
+    main {
+        padding-top: 15px;
+    }
+
+    .container-geral {
+        background-color: rgba(0, 0, 0, 0.548);
+        width: 80%;
+        margin-top: 15px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 1px 1px 10px rgb(53, 52, 52);
+        padding-bottom: 10px;
+    }
+
+    h1,
+    h2 {
+        color: white;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        color: white;
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th:nth-child(1),
+    td:nth-child(1) {
+        /* Id */
+        width: 50px;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2) {
+        /* Nome */
+        width: 150px;
+    }
+
+    th:nth-child(3),
+    td:nth-child(3) {
+        /* Email */
+        width: 200px;
+        word-break: break-word;
+    }
+
+    th:nth-child(4),
+    td:nth-child(4) {
+        /* CPF */
+        width: 130px;
+    }
+
+    th:nth-child(5),
+    td:nth-child(5) {
+        /* Nascimento */
+        width: 160px;
+    }
+
+    th {
+        background-color: #141212;
+    }
+
+    .btn-excluir,
+    .btn-cadastro {
+        display: inline-block;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+
+    .btn-excluir:hover,
+    .btn-cadastro:hover {
+        background-color: #45a049;
+    }
+
+    .btn-excluir {
+        background-color: #FF0000;
+    }
+
+    .btn-cadastro {
+        margin: 10px;
+        background-color: #008CBA;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="container-geral">
+    <h2>Perfil do Cliente</h2>
+    <a href="{% url 'cadastro_cliente' %}" class="btn-cadastro">Novo</a>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>CPF</th>
+                <th>Data Nascimeto</th>
+                <th style="width: 150px;">Ações</th>
+            </tr>
+        </thead>
+        <tbody id="clientes-tbody">
+            {% for cliente in clientes %}
+            <tr>
+                <td>{{cliente.id}}</td>
+                <td>{{cliente.nome}}</td>
+                <td>{{cliente.email}}</td>
+                <td>{{cliente.cpf}}</td>
+                <td>{{cliente.dataNascimento}}</td>
+                <td>
+                    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: nowrap;">
+                        <button class="btn-excluir" onclick="confirmarExclusao()">Excluir</button>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function confirmarExclusao() {
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: "Você está prestes a excluir sua conta.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#e60000',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, excluir',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{% url 'excluir_conta' %}";  // Ajuste a URL conforme necessário
+            }
+        });
+    }
+</script>
+
+{% endblock %}

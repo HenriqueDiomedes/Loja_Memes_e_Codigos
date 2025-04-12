@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{% block title %}Atualizar Produto{% endblock %}
+{% block styles %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="shortcut icon" href="/static/imagem/perfil/favicon.ico" type="image/x-icon">
+
+<style>
+    body {
+        background-image: url('/static/img/FundoFormulariosIndex.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        padding-top: 50px;
+        font-family: Arial, sans-serif;
+    }
+
+    .titulo {
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .container-formulario {
+        margin: 50px auto;
+        max-width: 800px;
+        padding: 20px;
+    }
+
+    form {
+        align-items: center;
+        background-color: rgba(128, 128, 128, 0.253);
+        margin: 0 auto;
+        max-width: 800px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    fieldset {
+        background-color: rgba(0, 0, 0, 0.76);
+        color: white;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .mb3 {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container-editavel {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .img-container {
+        width: 400px;
+        margin-left: 10px;
+    }
+
+    .editar{
+        width: 410px;
+    }
+
+    .img {
+        background-color: white;
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 10px;
+        border-radius: 8px;
+    }
+
+    .img img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        object-position: center;
+    }
+
+    .editar-img{
+        display: flex;
+    }
+
+    .editar-img #imagem1, #imagem2, #imagem3{
+        width: 400px;
+        height: 40px;
+        margin: 20px;
+        display: flex;
+        margin-right: 100px;
+    }
+
+    .editar-img #img1, #img2{
+        display: flex;
+        width: 200px;
+        height: 100px;
+    }
+
+    hr{
+        width: 700px;
+    }
+    #nome {
+        width: 400px;
+    }
+    #descricao {
+        width: 400px;
+    }
+    #preco {
+        width: 400px;
+    }
+    #quantidade {
+        width: 400px;
+    }
+    #quantidade {
+        width: 100px;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Formulário de busca separado -->
+<main class="container-formulario">
+    <form action="{% url 'atualizar_produto' %}" method="get">
+        <fieldset>
+            <h3 class="titulo">Buscar Produto:</h3>
+            <input id="pk-produto-buscar" class="form-control" type="number" name="id_produto"
+                placeholder="ID do produto">
+            <button id="busca-produto" class="btn btn-primary" type="submit">🔍</button>
+        </fieldset>
+    </form>
+    <br>
+
+    <!-- Formulário de atualização -->
+    <form action="{% url 'atualizar_produto' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="id_produto" value="{{ produto.id }}">
+        <fieldset class="mb3">
+            <legend class="titulo">Atualizar Produto:</legend>
+            <hr>
+            <div class="container-editavel">
+                <div class="editar">
+                    <label for="nome">Produto:</label>
+                    <input id="nome" value="{{ produto.nome|default:'' }}" class="form-control" type="text"
+                        name="nome"><br>
+
+                    <label for="descricao">Descrição:</label>
+                    <input id="descricao" value="{{ produto.descricao|default:'' }}" class="form-control" type="text"
+                        id="descricao" name="descricao"><br>
+
+                    <label for="preco">Preço:</label>
+                    <input id="preco" value="{{ produto.preco|default:'' }}" class="form-control" type="text"
+                        name="preco"><br>
+
+                    <label for="quantidade">Quantidade:</label>
+                    <input id="quantidade" value="{{ produto.quantidade|default:'' }}" class="form-control"
+                        type="number" name="quantidade"><br>
+
+                    <label class="titulo" for="imagem">Alterar as Imagens:</label>
+                    
+                    <hr>
+                    <label for="imagem1">Alterar Imagem 1:</label>
+                    <article class="editar-img">
+                        <input class="form-control" type="file" id="imagem1" name="imagem1">
+                        {% if produto and produto.imagem1 %}
+                        <img container-editavel" src="{{ produto.imagem1.url }}" alt="Imagem do Produto" id="img1">
+                        {% else %}
+                        <p>Nenhuma imagem disponível</p>
+                        {% endif %}
+                    </article>
+                    <hr>
+
+                    <label for="imagem2">Alterar Imagem 2:</label>
+                    <article class="editar-img">
+                        <input class="form-control" type="file" id="imagem2" name="imagem2">
+                        {% if produto and produto.imagem1 %}
+                        <img container-editavel" src="{{ produto.imagem2.url }}" alt="Imagem do Produto" id="img2">
+                        {% else %}
+                        <p>Nenhuma imagem disponível</p>
+                        {% endif %}
+                    </article>
+                    <hr>
+                    <label for="imagem3">Aterar Imagem 3:</label>
+                    <article class="editar-img">
+                        <input class="form-control" type="file" id="imagem3" name="imagem3">
+                        {% if produto and produto.imagem1 %}
+                        <img container-editavel" src="{{ produto.imagem3.url }}" alt="Imagem do Produto" id="img2">
+                        {% else %}
+                        <p>Nenhuma imagem disponível</p>
+                        {% endif %}
+                    </article>
+
+
+                </div>
+                <div class="img-container">
+                    <p>Produto carregado: ID_Produto({{ produto.id }})</p>
+                    {% if produto and produto.imagem1 %}
+                    <div class="img">
+                        <img id="do-produto" src="{{ produto.imagem1.url }}" alt="Imagem do Produto">
+                    </div>
+                    {% else %}
+                    <p>Nenhuma imagem disponível</p>
+                    {% endif %}
+                </div>
+            </div>
+        </fieldset>
+
+        <input class="btn btn-primary" type="submit" name="salvar" value="ATUALIZAR">
+        <a href="{% url 'formulario' %}" class="btn btn-primary">Voltar para o Menu</a>
+    </form>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}
+
+</html>
