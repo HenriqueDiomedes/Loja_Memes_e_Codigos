@@ -407,8 +407,24 @@ def diminuir_quantidade(request, produto_id):
     request.session['carrinho'] = carrinho
     return redirect('exibir_carrinho')
 
+#finalizar compra
+def finalizar_compra(request):
+    return render(request, 'finalizar_compra.html')
 
+def pagamento_cartao(request):
+    if request.method == 'POST':
+        return HttpResponse('Pagamento com cartão processado.')
+    return redirect('finalizar_compra')
 
+def pagamento_boleto(request):
+    if request.method == 'POST':
+        return HttpResponse('Boleto gerado com sucesso.')
+    return redirect('finalizar_compra')
+
+def pagamento_pix(request):
+    if request.method == 'POST':
+        return HttpResponse('Pagamento com PIX realizado.')
+    return redirect('finalizar_compra')
 
 
 

@@ -40,7 +40,11 @@ urlpatterns = [
     path('carrinho/aumentar/<int:produto_id>/', views.aumentar_quantidade, name='aumentar_quantidade'),
     path('carrinho/diminuir/<int:produto_id>/', views.diminuir_quantidade, name='diminuir_quantidade'),
 
-
+    #finalizar compra
+    path('finalizar/', views.finalizar_compra, name='finalizar_compra'),
+    path('pagamento/cartao/', views.pagamento_cartao, name='pagamento_cartao'),
+    path('pagamento/boleto/', views.pagamento_boleto, name='pagamento_boleto'),
+    path('pagamento/pix/', views.pagamento_pix, name='pagamento_pix'),
     # loin
     path('cadastro_cliente/', views.cadastroCliente, name='cadastro_cliente'),
     path('cliente/atualizar/', views.atualizarCliente, name='atualizar_cliente'),

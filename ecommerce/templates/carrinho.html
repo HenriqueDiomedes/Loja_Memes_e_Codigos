@@ -116,20 +116,38 @@
         display: flex;
         gap: 5px;
         font-size: 14px;
+        justify-content: center;
     }
 
     .acoes a {
         color: #d70000;
         text-decoration: none;
-        text-align: center;
-        justify-content: center;
     }
 
     .acoes a:hover {
         text-decoration: underline;
     }
 
-    /* Responsividade */
+    .botoes-carrinho {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .botao-voltar, .botao-finalizar {
+        padding: 12px 20px;
+        background-color: #007bff;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .botao-voltar:hover, .botao-finalizar:hover {
+        background-color: #0056b3;
+    }
+
     @media (max-width: 767px) {
         .tabela-carrinho th, .tabela-carrinho td {
             font-size: 14px;
@@ -158,6 +176,15 @@
 
         main {
             padding: 20px;
+        }
+
+        .botoes-carrinho {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .botao-voltar, .botao-finalizar {
+            text-align: center;
         }
     }
 </style>
@@ -212,5 +239,10 @@
             </tr>
         </tfoot>
     </table>
+
+    <div class="botoes-carrinho">
+        <a href="{% url 'lista_produtos' %}" class="botao-voltar">← Voltar às compras</a>
+        <a href="{% url 'finalizar_compra' %}" class="botao-finalizar">Finalizar Compra →</a>
+    </div>
 </main>
 {% endblock %}
