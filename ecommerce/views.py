@@ -8,6 +8,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from .models import Produto
 from .models import Cliente
+from django.db.models import Q
 
 #função para permisão de administrador
 def verificar_grupo(usuario):
@@ -58,6 +59,7 @@ def cadastroProduto(request):
  # sobre prooduto (tela de cadastro de produtos)
 
 # função que mostra a lista dos produtos(tela inicial)
+
 def lista_Produtos(request):
     nome_produto = request.GET.get('nome_produto')
     valor_min = request.GET.get('valor_min')
@@ -68,26 +70,32 @@ def lista_Produtos(request):
 
     produtos = Produto.objects.all()
 
+    # Filtro por nome ou descrição (parte do texto)
     if nome_produto:
-        produtos = Produto.objects.filter(nome__icontains=nome_produto)
+        produtos = produtos.filter(
+            Q(nome__icontains=nome_produto) |
+            Q(descricao__icontains=nome_produto)
+        )
 
+    # Filtro por preço
     if valor_min and valor_max:
         try:
             valor_min = float(valor_min)
             valor_max = float(valor_max)
-            produtos = Produto.objects.filter(preco__range=(valor_min, valor_max))
+            produtos = produtos.filter(preco__range=(valor_min, valor_max))
         except ValueError:
-            produtos = Produto.objects.all()  # Caso o filtro de valores não seja válido
+            pass  # ignora filtro de preço se não for número válido
 
+    # Ordenação
     if ordem:
         if ordem == '1':
-            produtos = Produto.objects.all().order_by("nome")
+            produtos = produtos.order_by("nome")
         elif ordem == '2':
-            produtos = Produto.objects.all().order_by("preco")
+            produtos = produtos.order_by("preco")
         elif ordem == '3':
-            produtos = Produto.objects.all().order_by("-nome")
+            produtos = produtos.order_by("-nome")
         elif ordem == '4':
-            produtos = Produto.objects.all().order_by("-preco")
+            produtos = produtos.order_by("-preco")
 
     return render(request, 'lista_produtos.html', {'produtos': produtos})
 

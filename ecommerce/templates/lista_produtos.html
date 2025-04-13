@@ -51,6 +51,22 @@
         cursor: pointer;
     }
 
+    .search-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .search-bar form {
+        max-width: 400px;
+        width: 100%;
+    }
+
+    .search-bar input {
+        flex: 1;
+    }
+
     .container-produto {
         width: 80%;
         margin: 5px auto;
@@ -137,6 +153,13 @@
 {% endblock %}
 
 {% block content %}
+
+<div class="search-bar mt-3 mb-4">
+    <form class="d-flex justify-content-center" method="get" action="">
+        <input class="form-control me-2" type="search" placeholder="Buscar produto..." name="nome_produto">
+        <button class="btn btn-outline-light" type="submit">Buscar</button>
+    </form>
+</div>
 
 
 <div class="container-produto">
