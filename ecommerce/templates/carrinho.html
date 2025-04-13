@@ -15,11 +15,6 @@
         box-sizing: border-box;
     }
 
-    header {
-        z-index: 1000;
-        position: relative;
-    }
-
     main {
         padding: 50px 20px;
         background-color: rgba(255, 255, 255, 0.95);
@@ -40,97 +35,40 @@
     .tabela-carrinho td {
         padding: 15px;
         border-bottom: 1px solid #ddd;
-        vertical-align: middle;
         text-align: center;
+        vertical-align: middle;
     }
 
     .tabela-carrinho th {
         background-color: #fafafa;
-        color: #333;
         font-weight: bold;
+        color: #333;
     }
 
-    /* Ajustando as colunas */
-    .tabela-carrinho thead th:nth-child(1),
-    .tabela-carrinho tbody td:nth-child(1),
-    .tabela-carrinho tfoot td:nth-child(1) {
-        width: 5%;
-    }
-
-    .tabela-carrinho thead th:nth-child(2),
-    .tabela-carrinho tbody td:nth-child(2),
-    .tabela-carrinho tfoot td:nth-child(2) {
-        width: 40%;
-    }
-
-    .tabela-carrinho thead th:nth-child(3),
-    .tabela-carrinho tbody td:nth-child(3),
-    .tabela-carrinho tfoot td:nth-child(3) {
-        width: 15%;
-    }
-
-    .tabela-carrinho thead th:nth-child(4),
-    .tabela-carrinho tbody td:nth-child(4),
-    .tabela-carrinho tfoot td:nth-child(4) {
-        width: 20%;
-    }
-
-    .tabela-carrinho thead th:nth-child(5),
-    .tabela-carrinho tbody td:nth-child(5),
-    .tabela-carrinho tfoot td:nth-child(5) {
-        width: 20%;
-    }
-
-    /* Ajuste no detalhe da imagem e nome do produto */
     .produto-info {
         display: flex;
         align-items: center;
         text-align: left;
-        height: 117.5px;
     }
 
     .produto-info img {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         object-fit: cover;
-        margin-right: 15px; /* Ajustei para melhorar o espaçamento */
-        border-radius: 4px;
+        border-radius: 5px;
+        margin-right: 10px;
     }
 
-    .produto-info .detalhes {
-        max-width: 300px;
-        margin-left: 10px;
-    }
-
-    .produto-info .detalhes .nome {
+    .produto-info .nome {
         font-weight: bold;
-        margin-bottom: 5px;
+        font-size: 15px;
+        color: #333;
     }
 
-    .produto-info .detalhes .variacao {
-        color: #888;
-        font-size: 14px;
-    }
-
-    /* Ajuste nos preços */
-    .preco-antigo {
-        text-decoration: line-through;
-        color: #aaa;
-        font-size: 14px;
-        display: block;
-    }
-
-    .preco-novo {
-        color: #d70000;
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    /* Ajuste na quantidade */
     .quantidade {
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         gap: 5px;
     }
 
@@ -139,60 +77,47 @@
         height: 25px;
         background-color: white;
         border: 1px solid #ccc;
-        text-align: center;
-        text-decoration: none;
         line-height: 25px;
-        color: black;
         font-weight: bold;
+        text-decoration: none;
+        color: black;
         display: inline-block;
+        text-align: center;
     }
 
     .quantidade input {
         width: 40px;
+        height: 25px;
         text-align: center;
         border: 1px solid #ccc;
-        height: 25px;
-    }
-
-    /* Ajuste no link "Remover" */
-    .acoes {
-        display: flex;
-        justify-content: center;
-        gap: 5px;
-        font-size: 14px;
-        text-align: center;
     }
 
     .acoes a {
         color: #d70000;
         text-decoration: none;
-        padding: 5px;
-        display: inline-block;
     }
 
     .acoes a:hover {
         text-decoration: underline;
     }
 
-    /* Ajustando o tamanho dos botões */
     .botoes-carrinho {
         margin-top: 30px;
         display: flex;
         justify-content: space-between;
         gap: 10px;
+        flex-wrap: wrap;
     }
 
     .botao-voltar,
     .botao-finalizar {
-        padding: 8px 15px;  /* Ajuste no tamanho do botão */
+        padding: 10px 15px;
         background-color: #007bff;
         color: white;
         border-radius: 8px;
         text-decoration: none;
         font-weight: bold;
         transition: background-color 0.3s ease;
-        text-align: center;
-        font-size: 14px;  /* Ajuste no tamanho da fonte */
     }
 
     .botao-voltar:hover,
@@ -200,107 +125,94 @@
         background-color: #0056b3;
     }
 
-    @media (max-width: 767px) {
-        main {
-            padding: 30px 10px;
+    /* Lista responsiva no mobile */
+    .carrinho-lista {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .tabela-carrinho {
+            display: none;
         }
 
-        .tabela-carrinho th,
-        .tabela-carrinho td {
-            font-size: 13px;
-            padding: 8px;
+        .carrinho-lista {
+            display: block;
         }
 
-        .produto-info {
-            display: flex;
-            align-items: center;
-            text-align: left;
-            gap: 15px;
-            min-height: 100px;
-            overflow: hidden;
+        .carrinho-item {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
         }
 
-        .produto-info img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 4px;
-            flex-shrink: 0;
-        }
-
-        .produto-info .detalhes {
-            flex: 1;
-            min-width: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .quantidade {
-            flex-direction: row;
-        }
-
-        .quantidade a {
-            width: 22px;
-            height: 22px;
-            font-size: 13px;
-            line-height: 22px;
-        }
-
-        .quantidade input {
-            width: 30px;
-            font-size: 13px;
-        }
-
-        .botoes-carrinho {
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .botao-voltar,
-        .botao-finalizar {
+        .carrinho-item img {
             width: 100%;
+            max-height: 180px;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+
+        .carrinho-item h3 {
+            margin: 5px 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .carrinho-item p {
+            margin: 5px 0;
             font-size: 14px;
+        }
+
+        .carrinho-item .quantidade {
+            justify-content: flex-start;
+            margin: 8px 0;
+        }
+
+        .carrinho-item .acoes {
+            margin-top: 10px;
         }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<main>
-    <h2>Seu Carrinho</h2>
+<main class="carrinho-container">
+    <h1>Seu Carrinho</h1>
 
+    {% if produtos %}
+    <!-- TABELA PARA DESKTOP -->
     <table class="tabela-carrinho">
         <thead>
             <tr>
-                <th><input type="checkbox" /></th>
                 <th>Produto</th>
                 <th>Descrição</th>
-                <th>Preço Unitário</th>
                 <th>Quantidade</th>
+                <th>Preço Unitário</th>
+                <th>Total</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
             {% for produto in produtos %}
             <tr>
-                <td><input type="checkbox" /></td>
                 <td class="produto-info">
                     <img src="{{ produto.imagem1 }}" alt="Imagem do Produto">
+                    <div class="nome">{{ produto.nome }}</div>
                 </td>
-                <td class="detalhes">
-                    <span class="nome">{{ produto.nome }}</span>
-                </td>
-
-                <td>
-                    <span class="preco-novo">R$ {{ produto.preco }}</span>
-                </td>
+                <td>{{ produto.descricao }}</td>
                 <td class="quantidade">
-                        <a href="{% url 'diminuir_quantidade' produto.id %}">−</a>
-                        <input type="text" value="{{ produto.quantidade }}" readonly />
-                        <a href="{% url 'aumentar_quantidade' produto.id %}">+</a>
+                    <a href="{% url 'diminuir_quantidade' produto.id %}">−</a>
+                    <input type="text" value="{{ produto.quantidade }}" readonly />
+                    <a href="{% url 'aumentar_quantidade' produto.id %}">+</a>
                 </td>
-
+                <td>R$ {{ produto.preco|floatformat:2 }}</td>
+                <td>R$ {{ produto.total|floatformat:2 }}</td>
                 <td class="acoes">
                     <a href="{% url 'remover_do_carrinho' produto.id %}">Remover</a>
                 </td>
@@ -309,17 +221,44 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="6" style="text-align: right; font-weight: bold;">Total:</td>
-                <td style="font-weight: bold; color: green;">
-                    R$ {{ total_geral|floatformat:2 }}
-                </td>
+                <td colspan="4"><strong>Total Geral:</strong></td>
+                <td colspan="2"><strong>R$ {{ total_geral|floatformat:2 }}</strong></td>
             </tr>
         </tfoot>
     </table>
 
+    <!-- LISTA PARA MOBILE -->
+    <div class="carrinho-lista">
+        {% for produto in produtos %}
+        <div class="carrinho-item">
+            <img src="{{ produto.imagem1 }}" alt="Imagem do Produto">
+            <h3>{{ produto.nome }}</h3>
+            <p>{{ produto.descricao }}</p>
+            <p><strong>Preço Unitário:</strong> R$ {{ produto.preco|floatformat:2 }}</p>
+            <p><strong>Total:</strong> R$ {{ produto.total|floatformat:2 }}</p>
+            <div class="quantidade">
+                <a href="{% url 'diminuir_quantidade' produto.id %}">−</a>
+                <input type="text" value="{{ produto.quantidade }}" readonly />
+                <a href="{% url 'aumentar_quantidade' produto.id %}">+</a>
+            </div>
+            <div class="acoes">
+                <a href="{% url 'remover_do_carrinho' produto.id %}">Remover</a>
+            </div>
+        </div>
+        {% endfor %}
+        <div style="text-align: right;">
+            <strong>Total Geral: R$ {{ total_geral|floatformat:2 }}</strong>
+        </div>
+    </div>
+    {% else %}
+    <p>O carrinho está vazio.</p>
+    {% endif %}
+
     <div class="botoes-carrinho">
         <a href="{% url 'lista_produtos' %}" class="botao-voltar">← Voltar às compras</a>
+        {% if produtos %}
         <a href="{% url 'finalizar_compra' %}" class="botao-finalizar">Finalizar Compra →</a>
+        {% endif %}
     </div>
 </main>
 {% endblock %}

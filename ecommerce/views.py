@@ -377,19 +377,22 @@ def exibir_carrinho(request):
     for produto_id, item in carrinho.items():
         try:
             produto = Produto.objects.get(id=produto_id)
-            quantidade = item['quantidade']
-            subtotal = produto.preco * quantidade
-            total_geral += subtotal
+            quantidade = item.get('quantidade', 1)
+            total = produto.preco * quantidade
+
             produtos.append({
                 'id': produto.id,
                 'nome': produto.nome,
-                'preco': produto.preco,
+                'descricao': produto.descricao,
                 'imagem1': produto.imagem1.url if produto.imagem1 else '',
+                'preco': produto.preco,
                 'quantidade': quantidade,
-                'subtotal': subtotal,
+                'total': total
             })
+
+            total_geral += total
         except Produto.DoesNotExist:
-            pass  # Produto foi deletado, ignora
+            pass
 
     return render(request, 'carrinho.html', {
         'produtos': produtos,
