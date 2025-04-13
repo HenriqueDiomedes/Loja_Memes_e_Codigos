@@ -9,140 +9,49 @@
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
-        font-family: Arial, sans-serif;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     main {
         padding: 40px;
         background-color: rgba(255, 255, 255, 0.95);
-        max-width: 700px;
+        max-width: 600px;
         margin: 50px auto;
         border-radius: 12px;
-        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+        text-align: center;
     }
 
     h2 {
-        text-align: center;
+        font-size: 28px;
         margin-bottom: 30px;
+        color: #333;
     }
 
-    .selecao-pagamento {
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 20px;
-    }
-
-    .selecao-pagamento button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 6px;
-        background-color: #eee;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .selecao-pagamento button.ativo {
+    .botao-finalizar {
         background-color: #007bff;
         color: white;
-    }
-
-    .formulario-pagamento {
-        display: none;
-        margin-top: 20px;
-    }
-
-    .formulario-pagamento.active {
-        display: block;
-    }
-
-    form label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-
-    form input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 15px;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-    }
-
-    .botao-pagar {
-        width: 100%;
-        padding: 12px;
-        background-color: #28a745;
-        color: white;
-        font-size: 16px;
-        font-weight: bold;
+        font-size: 18px;
+        padding: 15px 30px;
         border: none;
-        border-radius: 6px;
+        border-radius: 8px;
         cursor: pointer;
-        margin-top: 10px;
+        transition: background-color 0.3s;
+        font-weight: bold;
+    }
+
+    .botao-finalizar:hover {
+        background-color: #0056b3;
     }
 </style>
 {% endblock %}
 
 {% block content %}
 <main>
-    <h2>Finalizar Compra</h2>
-
-    <div class="selecao-pagamento">
-        <button onclick="selecionarPagamento('cartao')" id="btn-cartao">Cartão</button>
-        <button onclick="selecionarPagamento('boleto')" id="btn-boleto">Boleto</button>
-        <button onclick="selecionarPagamento('pix')" id="btn-pix">PIX</button>
-    </div>
-
-    <div id="cartao" class="formulario-pagamento">
-        <form action="{% url 'pagamento_cartao' %}" method="post">
-            {% csrf_token %}
-            <label for="numero_cartao">Número do Cartão</label>
-            <input type="text" name="numero_cartao" required>
-
-            <label for="nome_cartao">Nome no Cartão</label>
-            <input type="text" name="nome_cartao" required>
-
-            <label for="validade">Validade</label>
-            <input type="text" name="validade" placeholder="MM/AA" required>
-
-            <label for="cvv">CVV</label>
-            <input type="text" name="cvv" required>
-
-            <button type="submit" class="botao-pagar">Pagar com Cartão</button>
-        </form>
-    </div>
-
-    <div id="boleto" class="formulario-pagamento">
-        <form action="{% url 'pagamento_boleto' %}" method="post">
-            {% csrf_token %}
-            <label for="cpf">CPF</label>
-            <input type="text" name="cpf" required>
-
-            <button type="submit" class="botao-pagar">Gerar Boleto</button>
-        </form>
-    </div>
-
-    <div id="pix" class="formulario-pagamento">
-        <form action="{% url 'pagamento_pix' %}" method="post">
-            {% csrf_token %}
-            <label for="chave_pix">Chave PIX</label>
-            <input type="text" name="chave_pix" placeholder="e-mail, telefone ou aleatória" required>
-
-            <button type="submit" class="botao-pagar">Pagar com PIX</button>
-        </form>
-    </div>
+    <h2>🛒 Finalizar Compra</h2>
+    <form method="post" action="{% url 'formulario_pagamento' %}">
+        {% csrf_token %}
+        <button type="submit" class="botao-finalizar">💰 Ir para o Pagamento</button>
+    </form>
 </main>
-
-<script>
-    function selecionarPagamento(tipo) {
-        const botoes = ['cartao', 'boleto', 'pix'];
-        botoes.forEach(function (id) {
-            document.getElementById(id).classList.remove('active');
-            document.getElementById('btn-' + id).classList.remove('ativo');
-        });
-        document.getElementById(tipo).classList.add('active');
-        document.getElementById('btn-' + tipo).classList.add('ativo');
-    }
-</script>
 {% endblock %}

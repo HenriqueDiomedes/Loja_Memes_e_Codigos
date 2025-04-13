@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<main style="text-align: center; padding: 50px;">
+    <h2>❌ O pagamento falhou.</h2>
+    <p>Infelizmente não foi possível concluir o pagamento.</p>
+    <a href="{% url 'exibir_carrinho' %}">Tentar novamente</a>
+</main>
+{% endblock %}

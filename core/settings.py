@@ -141,3 +141,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Configuração do Mercado Pago
+MERCADO_PAGO_ACCESS_TOKEN = 'APP_USR-8694875339599536-041314-d492afdb50263c118c3b8d5340da569e-2385936531'  # Substitua com sua chave real

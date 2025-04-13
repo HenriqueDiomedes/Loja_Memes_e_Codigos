@@ -9,6 +9,9 @@ from django.contrib import messages
 from .models import Produto
 from .models import Cliente
 from django.db.models import Q
+import mercadopago
+from django.conf import settings
+
 
 #função para permisão de administrador
 def verificar_grupo(usuario):
@@ -336,11 +339,51 @@ def formulario(request):
 
 #FUNÇÕES SOBRE VENDAS
 
-# formulario de pagamento
+# Função para gerar o pagamento no Mercado Pago
+  # ou ajuste conforme o local do seu modelo Produto
+
 @user_passes_test(verificar_grupo)
 def formularioPagamento(request):
-    
-    return render(request, 'formulario_pagamento.html')
+    carrinho = request.session.get('carrinho', {})
+    if not carrinho:
+        messages.error(request, "Carrinho vazio!")
+        return redirect('exibir_carrinho')
+
+    sdk = mercadopago.SDK(settings.MERCADO_PAGO_ACCESS_TOKEN)
+
+    items = []
+    for produto_id, item in carrinho.items():
+        produto = Produto.objects.get(id=produto_id)
+        items.append({
+            "title": produto.nome,
+            "quantity": item['quantidade'],
+            "unit_price": float(item['preco']),
+            "currency_id": "BRL"
+        })
+
+    preference_data = {
+        "items": items,
+        "back_urls": {
+            "success": "http://127.0.0.1:8000/pagamento/sucesso/",
+            "failure": "http://127.0.0.1:8000/pagamento/falha/",
+            "pending": "http://127.0.0.1:8000/pagamento/pendente/",
+        },
+        "auto_return": "approved",
+        "statement_descriptor": "MEMES&CÓDIGOS"  # opcional
+    }
+
+    preference_response = sdk.preference().create(preference_data)
+
+    if preference_response["status"] == 201:
+        return redirect(preference_response["response"]["init_point"])
+    else:
+        messages.error(request, "Erro ao criar a preferência de pagamento!")
+        return redirect('exibir_carrinho')
+
+
+
+
+
 
 #formulario para adicionar produto ao carrinho
 def adicionar_ao_carrinho(request, produto_id):
@@ -421,21 +464,6 @@ def diminuir_quantidade(request, produto_id):
 #finalizar compra
 def finalizar_compra(request):
     return render(request, 'finalizar_compra.html')
-
-def pagamento_cartao(request):
-    if request.method == 'POST':
-        return HttpResponse('Pagamento com cartão processado.')
-    return redirect('finalizar_compra')
-
-def pagamento_boleto(request):
-    if request.method == 'POST':
-        return HttpResponse('Boleto gerado com sucesso.')
-    return redirect('finalizar_compra')
-
-def pagamento_pix(request):
-    if request.method == 'POST':
-        return HttpResponse('Pagamento com PIX realizado.')
-    return redirect('finalizar_compra')
 
 
 
