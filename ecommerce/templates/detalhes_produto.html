@@ -5,120 +5,129 @@
     crossorigin="anonymous">
 
 {% block styles %}
-    <style>
-        body {
-            background-image: url('/static/img/FundoFormulariosIndex.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            padding-top: 50px;
-            font-family: Arial, sans-serif;
+<style>
+    body {
+        background-image: url('/static/img/FundoFormulariosIndex.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        padding-top: 50px;
+        font-family: Arial, sans-serif;
+    }
+
+    .container-detalhes {
+        background-color: rgba(0, 0, 0, 0.527);
+        box-shadow: 1px 1px 10px rgba(255, 252, 252, 0.4);
+        border-radius: 15px;
+        padding: 40px;
+        text-align: center;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    .container-box {
+        background-color: rgba(255, 255, 255, 0.1);
+        box-shadow: 1px 1px 10px rgba(255, 252, 252, 0.3);
+        border-radius: 15px;
+        padding: 20px;
+        width: 45%;
+        min-width: 300px;
+        min-height: 450px;
+        /* Mantém os containers com altura fixa */
+    }
+
+    /* Ajuste para o carousel */
+    .carousel-inner {
+        width: 100%;
+        height: 450px;
+        /* Define um tamanho fixo para o carousel */
+    }
+
+    .carousel-inner img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        /* Mantém a proporção das imagens */
+        border-radius: 10px;
+    }
+
+    h2,
+    p {
+        color: white;
+    }
+
+    .btn-primary {
+        background-color: #071E41;
+        border: none;
+        padding: 12px 24px;
+        font-weight: 600;
+        width: 100%;
+        border-radius: 8px;
+        transition: transform 0.2s ease;
+        margin-top: 10px;
+    }
+
+    .btn-primary:hover {
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+        .container-detalhes {
+            flex-direction: column;
         }
 
-        .container-detalhes {
-            background-color: rgba(0, 0, 0, 0.527);
-            box-shadow: 1px 1px 10px rgba(255, 252, 252, 0.4);
-            border-radius: 15px;
-            padding: 40px;
-            text-align: center;
-            display: flex;
-            gap: 40px; /* Aumentei o espaço entre os containers */
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            max-width: 1100px;
-            margin: auto;
+        .carousel-inner {
+            width: 100%;
+            height: 370px;
+            /* Define um tamanho fixo para o carousel */
         }
 
         .container-box {
-            background-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 1px 1px 10px rgba(255, 252, 252, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            width: 45%;
-            min-width: 300px;
-            min-height: 450px; /* Mantém os containers com altura fixa */
-        }
-
-        /* Ajuste para o carousel */
-        .carousel-inner {
             width: 100%;
-            height: 500px; /* Define um tamanho fixo para o carousel */
         }
-
-        .carousel-inner img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Mantém a proporção das imagens */
-            border-radius: 10px;
-        }
-
-        h2, h3, p {
-            color: white;
-        }
-
-        .btn-primary {
-            background-color: #071E41;
-            border: none;
-            padding: 12px 24px;
-            font-weight: 600;
-            width: 100%;
-            border-radius: 8px;
-            transition: transform 0.2s ease;
-            margin-top: 10px;
-        }
-
-        .btn-primary:hover {
-            transform: scale(1.05);
-        }
-
-        @media (max-width: 768px) {
-            .container-detalhes {
-                flex-direction: column;
-            }
-
-            .container-box {
-                width: 100%;
-            }
-        }
-    </style>
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-    <h1 class="text-center text-white"><hr></h1>
-    <div class="container container-detalhes">
-        <!-- Container da imagem -->
-        <div class="container-box">
-            <div id="carouselProduto" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">''
-                    {% for imagem in imagens %}
-                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                        <img src="{{ imagem }}" class="d-block w-100" alt="Imagem do produto">
-                    </div>
-                    {% endfor %}
+<main class="container container-detalhes">
+    <!-- Container da imagem -->
+    <section class="container-box">
+        <div id="carouselProduto" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">''
+                {% for imagem in imagens %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="{{ imagem }}" class="d-block w-100" alt="Imagem do produto">
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselProduto" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Anterior</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselProduto" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Próximo</span>
-                </button>
+                {% endfor %}
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselProduto" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselProduto" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Próximo</span>
+            </button>
         </div>
+    </section>
 
-        <!-- Container da descrição -->
-        <div class="container-box d-flex flex-column justify-content-center">
-            <h2>{{ produto.nome }}</h2>
-            <h3>R$ {{ produto.preco }}</h3>
-            <p>{{ produto.descricao }}</p>
-            <a class="btn btn-primary" href="{% url 'adicionar_ao_carrinho' produto.id %}">🛒 Adicionar ao carrinho</a>
-        </div>
-    </div>
+    <!-- Container da descrição -->
+    <section class="container-info">
+        <h2>{{ produto.nome }}</h2>
+        <h2>R$ {{ produto.preco }}</h2>
+        <p>{{ produto.descricao }}</p>
+        <a class="btn btn-primary" href="{% url 'adicionar_ao_carrinho' produto.id %}">🛒 Adicionar ao carrinho</a>
+        <a class="btn btn-primary" href="{% url 'finalizar_compra' %}">💸 Comprar agora</a>
+    </section>
+</main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous">
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+</script>
 {% endblock %}

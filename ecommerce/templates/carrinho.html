@@ -11,15 +11,21 @@
         background-attachment: fixed;
         font-family: Arial, sans-serif;
         margin: 0;
+        padding-top: 50px;
+        box-sizing: border-box;
+    }
+
+    header {
+        z-index: 1000;
+        position: relative;
     }
 
     main {
-        padding: 50px;
+        padding: 50px 20px;
         background-color: rgba(255, 255, 255, 0.95);
         border-radius: 12px;
-        max-width: 1200px;
+        max-width: 1000px;
         margin: auto;
-        margin-bottom: 60px;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     }
 
@@ -44,22 +50,56 @@
         font-weight: bold;
     }
 
+    /* Ajustando as colunas */
+    .tabela-carrinho thead th:nth-child(1),
+    .tabela-carrinho tbody td:nth-child(1),
+    .tabela-carrinho tfoot td:nth-child(1) {
+        width: 5%;
+    }
+
+    .tabela-carrinho thead th:nth-child(2),
+    .tabela-carrinho tbody td:nth-child(2),
+    .tabela-carrinho tfoot td:nth-child(2) {
+        width: 40%;
+    }
+
+    .tabela-carrinho thead th:nth-child(3),
+    .tabela-carrinho tbody td:nth-child(3),
+    .tabela-carrinho tfoot td:nth-child(3) {
+        width: 15%;
+    }
+
+    .tabela-carrinho thead th:nth-child(4),
+    .tabela-carrinho tbody td:nth-child(4),
+    .tabela-carrinho tfoot td:nth-child(4) {
+        width: 20%;
+    }
+
+    .tabela-carrinho thead th:nth-child(5),
+    .tabela-carrinho tbody td:nth-child(5),
+    .tabela-carrinho tfoot td:nth-child(5) {
+        width: 20%;
+    }
+
+    /* Ajuste no detalhe da imagem e nome do produto */
     .produto-info {
         display: flex;
         align-items: center;
         text-align: left;
+        height: 117.5px;
     }
 
     .produto-info img {
         width: 80px;
         height: 80px;
         object-fit: cover;
-        margin-right: 10px;
+        margin-right: 15px; /* Ajustei para melhorar o espaçamento */
         border-radius: 4px;
     }
 
     .produto-info .detalhes {
         max-width: 300px;
+        margin-left: 10px;
     }
 
     .produto-info .detalhes .nome {
@@ -72,6 +112,7 @@
         font-size: 14px;
     }
 
+    /* Ajuste nos preços */
     .preco-antigo {
         text-decoration: line-through;
         color: #aaa;
@@ -85,6 +126,7 @@
         font-weight: bold;
     }
 
+    /* Ajuste na quantidade */
     .quantidade {
         display: flex;
         justify-content: center;
@@ -112,70 +154,102 @@
         height: 25px;
     }
 
+    /* Ajuste no link "Remover" */
     .acoes {
         display: flex;
+        justify-content: center;
         gap: 5px;
         font-size: 14px;
-        justify-content: center;
+        text-align: center;
     }
 
     .acoes a {
         color: #d70000;
         text-decoration: none;
+        padding: 5px;
+        display: inline-block;
     }
 
     .acoes a:hover {
         text-decoration: underline;
     }
 
+    /* Ajustando o tamanho dos botões */
     .botoes-carrinho {
         margin-top: 30px;
         display: flex;
         justify-content: space-between;
+        gap: 10px;
     }
 
-    .botao-voltar, .botao-finalizar {
-        padding: 12px 20px;
+    .botao-voltar,
+    .botao-finalizar {
+        padding: 8px 15px;  /* Ajuste no tamanho do botão */
         background-color: #007bff;
         color: white;
         border-radius: 8px;
         text-decoration: none;
         font-weight: bold;
         transition: background-color 0.3s ease;
+        text-align: center;
+        font-size: 14px;  /* Ajuste no tamanho da fonte */
     }
 
-    .botao-voltar:hover, .botao-finalizar:hover {
+    .botao-voltar:hover,
+    .botao-finalizar:hover {
         background-color: #0056b3;
     }
 
     @media (max-width: 767px) {
-        .tabela-carrinho th, .tabela-carrinho td {
-            font-size: 14px;
-            padding: 10px;
+        main {
+            padding: 30px 10px;
+        }
+
+        .tabela-carrinho th,
+        .tabela-carrinho td {
+            font-size: 13px;
+            padding: 8px;
+        }
+
+        .produto-info {
+            display: flex;
+            align-items: center;
+            text-align: left;
+            gap: 15px;
+            min-height: 100px;
+            overflow: hidden;
         }
 
         .produto-info img {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            flex-shrink: 0;
         }
 
-        .produto-info .detalhes .nome {
-            font-size: 14px;
+        .produto-info .detalhes {
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .quantidade {
+            flex-direction: row;
         }
 
         .quantidade a {
-            width: 20px;
-            height: 20px;
-            font-size: 14px;
+            width: 22px;
+            height: 22px;
+            font-size: 13px;
+            line-height: 22px;
         }
 
         .quantidade input {
             width: 30px;
-            font-size: 14px;
-        }
-
-        main {
-            padding: 20px;
+            font-size: 13px;
         }
 
         .botoes-carrinho {
@@ -183,8 +257,10 @@
             gap: 15px;
         }
 
-        .botao-voltar, .botao-finalizar {
-            text-align: center;
+        .botao-voltar,
+        .botao-finalizar {
+            width: 100%;
+            font-size: 14px;
         }
     }
 </style>
@@ -199,6 +275,7 @@
             <tr>
                 <th><input type="checkbox" /></th>
                 <th>Produto</th>
+                <th>Descrição</th>
                 <th>Preço Unitário</th>
                 <th>Quantidade</th>
                 <th>Ações</th>
@@ -210,20 +287,20 @@
                 <td><input type="checkbox" /></td>
                 <td class="produto-info">
                     <img src="{{ produto.imagem1 }}" alt="Imagem do Produto">
-                    <div class="detalhes">
-                        <div class="nome">{{ produto.nome }}</div>
-                    </div>
                 </td>
+                <td class="detalhes">
+                    <span class="nome">{{ produto.nome }}</span>
+                </td>
+
                 <td>
                     <span class="preco-novo">R$ {{ produto.preco }}</span>
                 </td>
-                <td>
-                    <div class="quantidade">
+                <td class="quantidade">
                         <a href="{% url 'diminuir_quantidade' produto.id %}">−</a>
                         <input type="text" value="{{ produto.quantidade }}" readonly />
                         <a href="{% url 'aumentar_quantidade' produto.id %}">+</a>
-                    </div>
                 </td>
+
                 <td class="acoes">
                     <a href="{% url 'remover_do_carrinho' produto.id %}">Remover</a>
                 </td>
@@ -232,8 +309,8 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="4" style="text-align: right; font-weight: bold;">Total:</td>
-                <td colspan="2" style="font-weight: bold; color: green;">
+                <td colspan="6" style="text-align: right; font-weight: bold;">Total:</td>
+                <td style="font-weight: bold; color: green;">
                     R$ {{ total_geral|floatformat:2 }}
                 </td>
             </tr>
