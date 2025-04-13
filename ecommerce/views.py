@@ -380,9 +380,23 @@ def formularioPagamento(request):
         messages.error(request, "Erro ao criar a preferência de pagamento!")
         return redirect('exibir_carrinho')
 
+def pagamento_sucesso(request):
+    """
+    Exibe uma página de sucesso quando o pagamento é completado com sucesso.
+    """
+    return render(request, 'pagamento_sucesso.html')
 
+def pagamento_falha(request):
+    """
+    Exibe uma página quando o pagamento falha.
+    """
+    return render(request, 'pagamento_falha.html')
 
-
+def pagamento_pendente(request):
+    """
+    Exibe uma página quando o pagamento está pendente.
+    """
+    return render(request, 'pagamento_pendente.html')
 
 
 #formulario para adicionar produto ao carrinho
